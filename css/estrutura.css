@@ -1,0 +1,166 @@
+:root {
+  /* Cores Brennand */
+  --bg-primary: hsl(210, 11%, 17%);
+  --text-primary: hsl(45, 22%, 95%);
+  --card-bg: hsl(75, 8%, 63%);
+  --card-text: hsl(0, 0%, 100%);
+  --primary-color: hsl(120, 12%, 29%);
+  --primary-text: hsl(0, 0%, 100%);
+  --accent-color: hsl(45, 22%, 95%);
+  --input-bg: hsl(0, 0%, 100%);
+  --input-text: hsl(210, 11%, 17%);
+  
+  /* Gradientes */
+  --gradient-bg: radial-gradient(circle at 20% 80%, hsl(45, 22%, 95%) 0%, transparent 50%), 
+                 radial-gradient(circle at 80% 20%, hsl(45, 22%, 95%) 0%, transparent 50%);
+  
+  /* Sombras */
+  --shadow-card: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-login: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+/* Header */
+header {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+/* Main */
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Card de Login */
+.card {
+  background-color: var(--card-bg);
+  width: 100%;
+  max-width: 28rem;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: var(--shadow-login);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Seções do formulário */
+.login, .passaword {
+  display: flex;
+  flex-direction: column;
+}
+
+.enter {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Registro */
+.register {
+  text-align: center;
+  display: block;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  max-width: 2900px;
+  margin-top: 3rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .card {
+    max-width: 100%;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+  }
+  
+  header {
+    margin-bottom: 2rem;
+  }
+  
+  footer {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .subtitle {
+    font-size: 1.75rem;
+  }
+}
+
+/* Estados de foco e interação */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+/* Animações suaves */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Grid para ícones */
+.icone {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  margin-top: 1rem;
+}
+.social-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-direction: row;
+  width: 50px;
+  height: 50px;
+  background-color: var(--input-bg);
+  border-radius: 50%;
+  color: var(--button-bg);
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}

@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-body);
+  color: var(--text-header-footer);
+
+  min-height: 100vh;
+  width: 100%;
+
+  background-color: var(--bg-body);
+  background-image: url('./img/asas.png');
+  background-repeat: repeat-x; /* repete apenas na horizontal */
+  background-size: contain;       /* mantém o tamanho original */
+  background-position: bottom center; /* alinha no rodapé */
+  background-attachment: fixed;
+}
+
+
+/* Se a tela for muito estreita (ex: celular), usa contain para não cortar a arte */
+@media (max-width: 768px) {
+  body {
+    background-size: contain;
+    background-position: bottom center;
+  }
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
