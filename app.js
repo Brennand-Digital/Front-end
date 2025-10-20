@@ -1,22 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- CÓDIGO DO MENU SIDEBAR ---
-    const sidebar = document.querySelector('.sidebar');
-    const openMenuBtn = document.querySelector('.open-menu-btn');
-    const closeBtn = document.querySelector('.close-btn');
+    // Dentro do seu app.js
+const sidebar = document.querySelector('.sidebar');
+const openMenuBtn = document.querySelector('.open-menu-btn');
+const closeBtn = document.querySelector('.close-btn');
 
-    // Verifica se os elementos do menu existem na página atual
-    if (openMenuBtn && closeBtn && sidebar) {
-        function openSidebar() {
-            sidebar.classList.add('is-active');
-        }
-        function closeSidebar() {
-            sidebar.classList.remove('is-active');
-        }
-
-        openMenuBtn.addEventListener('click', openSidebar);
-        closeBtn.addEventListener('click', closeSidebar);
+if (openMenuBtn && closeBtn && sidebar) {
+    function openSidebar() {
+        sidebar.classList.add('is-active');
     }
+    function closeSidebar() {
+        sidebar.classList.remove('is-active');
+    }
+    openMenuBtn.addEventListener('click', openSidebar);
+    closeBtn.addEventListener('click', closeSidebar);
+}
 
 
     // --- CÓDIGO DO CARROSSEL (SWIPER) ---
