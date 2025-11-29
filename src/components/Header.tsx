@@ -1,4 +1,4 @@
-import { Menu, Search } from "lucide-react";
+import { Menu, Search, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -6,8 +6,9 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoImage from "@/assets/logo.png";
+import { isAdmin } from "@/utils/auth";
 
 interface HeaderProps {
   variant?: "sage" | "ocean" | "terracotta" | "cream" | "black";
@@ -15,6 +16,8 @@ interface HeaderProps {
 }
 
 export const Header = ({ variant = "sage", showSearch = false }: HeaderProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const bgColor = {
     sage: "bg-sage",
     ocean: "bg-ocean",
@@ -33,6 +36,34 @@ export const Header = ({ variant = "sage", showSearch = false }: HeaderProps) =>
     cream: "hsl(42, 35%, 90%)",
     black: "hsl(0, 0%, 0%)",
   }[variant];
+
+  // Determinar cor dinâmica do botão de acordo com a página
+  const isHome = location.pathname === "/";
+  let feedbackBtnClass = "hidden sm:inline-flex ml-2 md:ml-0 px-3 py-2 rounded-lg text-white text-sm font-medium transition-shadow shadow-md";
+  if (isHome) {
+    feedbackBtnClass += " bg-green-700 hover:bg-green-800";
+  } else {
+    switch(variant) {
+      case "terracotta":
+        feedbackBtnClass += " bg-[#cb6647] hover:bg-[#a14829]"; // laranja terracota
+        break;
+      case "ocean":
+        feedbackBtnClass += " bg-blue-700 hover:bg-blue-800";
+        break;
+      case "sage":
+        feedbackBtnClass += " bg-lime-700 hover:bg-lime-800";
+        break;
+      case "cream":
+        feedbackBtnClass += " bg-yellow-900 hover:bg-yellow-800 text-white";
+        break;
+      case "black":
+        feedbackBtnClass += " bg-zinc-900 hover:bg-zinc-700";
+        break;
+      default:
+        feedbackBtnClass += " bg-green-700 hover:bg-green-800";
+        break;
+    }
+  }
 
   return (
     <header className={`${bgColor} ${textColor} p-3 md:p-4 rounded-2xl mb-4 md:mb-6`}>
@@ -54,25 +85,31 @@ export const Header = ({ variant = "sage", showSearch = false }: HeaderProps) =>
         </Link>
         
         <div className="flex items-center gap-2 md:gap-3">
-          {showSearch && (
-            <div className="hidden sm:block max-w-xs w-48 md:w-64">
-              <div className="relative">
-                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 opacity-70 ${variant === "cream" ? "text-foreground" : "text-white"}`} />
-                <Input
-                  placeholder="Buscar"
-                  className={`pl-10 text-sm md:text-base ${
-                    variant === "cream" 
-                      ? "bg-white/80 border-foreground/20 text-foreground placeholder:text-foreground/50" 
-                      : variant === "black"
-                      ? "bg-white/10 border-white/20 text-white placeholder:text-white/70"
-                      : "bg-white/10 border-white/20 text-white placeholder:text-white/70"
-                  }`}
-                />
-              </div>
-            </div>
+          {/* Botão Feedback */}
+          <a
+            href="https://forms.gle/ZATNE9Ec3ic5dFGYA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={feedbackBtnClass}
+          >
+            Feedback
+          </a>
+          {/* Ícone de logout (desktop/header) */}
+          {localStorage.getItem("brennand_auth") === "true" && (
+            <button
+              title="Logout"
+              onClick={() => {
+                localStorage.removeItem("brennand_auth");
+                localStorage.removeItem("brennand_token");
+                localStorage.removeItem("brennand_email");
+                navigate("/auth");
+              }}
+              className="ml-2 p-2 rounded-full hover:bg-red-100/20 focus:outline-none transition"
+              style={{ lineHeight: 0 }}
+            >
+              <LogOut className="h-6 w-6 text-red-700 hover:text-red-900" />
+            </button>
           )}
-          
-          {!showSearch && <Search className={`h-4 w-4 md:h-5 md:w-5 ${variant === "cream" ? "text-foreground" : "text-white"}`} />}
           
           {/* Menu hambúrguer apenas para mobile */}
           <Sheet>
@@ -107,6 +144,39 @@ export const Header = ({ variant = "sage", showSearch = false }: HeaderProps) =>
                 <Link to="/avisos" className="text-xl font-semibold hover:opacity-80 transition">
                   Avisos
                 </Link>
+                {/* Acesso admin/voltar admin só se for admin */}
+                {isAdmin() && (
+                  <>
+                    <Link
+                      to="/admin/avisos"
+                      className="text-xl font-bold text-green-200 hover:text-green-100 transition mt-3"
+                    >
+                      Área Admin
+                    </Link>
+                    {location.pathname === "/admin/avisos" && (
+                      <Link
+                        to="/"
+                        className="text-xl font-semibold hover:opacity-80 transition text-white/80 mt-1"
+                      >
+                        Sair da área admin
+                      </Link>
+                    )}
+                  </>
+                )}
+                {/* Botão de Logout */}
+                {localStorage.getItem("brennand_auth") === "true" && (
+                  <button
+                    className="mt-4 text-xl font-bold text-red-300 bg-red-900/70 rounded-lg py-2 hover:bg-red-700 transition"
+                    onClick={() => {
+                      localStorage.removeItem("brennand_auth");
+                      localStorage.removeItem("brennand_token");
+                      localStorage.removeItem("brennand_email");
+                      navigate("/auth");
+                    }}
+                  >
+                    Logout
+                  </button>
+                )}
               </nav>
             </SheetContent>
           </Sheet>

@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { MainLayout } from "@/components/MainLayout";
 import api from "./services/api";
+import AdminAvisos from "./pages/AdminAvisos";
 
 const queryClient = new QueryClient();
 
@@ -62,6 +63,16 @@ const App = () => {
               <Route path="historia" element={<Historia />} />
               <Route path="eventos" element={<Eventos />} />
             </Route>
+
+            {/* Admin: rota exclusiva de avisos */}
+            <Route
+              path="/admin/avisos"
+              element={
+                <ProtectedRoute onlyAdmin>
+                  <AdminAvisos />
+                </ProtectedRoute>
+              }
+            />
 
             {/* 🚨 Página não encontrada */}
             <Route path="*" element={<NotFound />} />

@@ -4,6 +4,7 @@ import sculptureDramatic from "@/assets/sculpture-dramatic.jpg";
 import patternSage from "@/assets/pattern-sage.jpg";
 import api from "@/services/api";
 import { useEffect, useState } from "react";
+import AvisosList from "./AvisosList";
 
 interface Aviso {
   id: string;
@@ -46,28 +47,8 @@ const Avisos = () => {
             <h1 className="text-3xl md:text-4xl font-bold text-white">Avisos</h1>
           </div>
         </div>
-
-        {/* Estado de carregamento */}
-        {loading && (
-          <p className="text-center text-sm md:text-base text-gray-500">Carregando avisos...</p>
-        )}
-
-        {/* Avisos dinâmicos vindos do back */}
-        {!loading && avisos.length > 0 ? (
-          avisos.map((aviso) => (
-            <Card key={aviso.id} className="bg-sage-dark text-white p-4 md:p-6 rounded-3xl">
-              <h2 className="text-lg md:text-xl font-bold mb-2">{aviso.titulo}</h2>
-              <p className="text-xs md:text-sm opacity-90">{aviso.descricao}</p>
-            </Card>
-          ))
-        ) : (
-          !loading && (
-            <p className="text-center text-sm md:text-base text-gray-500">
-              Nenhum aviso encontrado.
-            </p>
-          )
-        )}
-
+        {/* Lista de avisos extraída para componente separado */}
+        <AvisosList />
         {/* Mantém o conteúdo fixo original abaixo */}
         <div
           className="h-40 md:h-48 lg:h-64 rounded-3xl"

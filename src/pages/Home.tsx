@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { PatternCard } from "@/components/PatternCard";
 import heroImage from "@/assets/hero-park.jpg";
 import patternSage from "@/assets/pattern-sage.jpg";
+import AvisosList from "./AvisosList";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ const Home = () => {
   return (
     <div className="min-h-screen p-4 md:p-6 lg:p-8 w-full max-w-full sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto">
       <Header variant="sage" />
-      
       <div 
         className="h-48 md:h-64 lg:h-80 rounded-3xl mb-4 md:mb-6 relative overflow-hidden"
         style={{
@@ -29,7 +29,11 @@ const Home = () => {
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
       </div>
-
+      {/* Avisos abaixo da foto principal */}
+      <section className="mb-6">
+        <AvisosList />
+      </section>
+      
       <PatternCard pattern="sage" className="mb-4 md:mb-6">
         <div 
           className="h-40 md:h-48 lg:h-64 relative"

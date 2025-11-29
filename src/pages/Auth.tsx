@@ -54,6 +54,7 @@ const Auth = () => {
         if (response.data?.token) {
           localStorage.setItem("brennand_token", response.data.token);
         }
+        localStorage.setItem("brennand_email", email);
 
         navigate("/");
       } else {

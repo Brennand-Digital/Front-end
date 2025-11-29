@@ -1,5 +1,6 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoImage from "@/assets/logo.png";
+import { isAdmin } from "@/utils/auth";
 
 interface SidebarProps {
   variant?: "sage" | "ocean" | "terracotta" | "cream" | "black";
@@ -7,6 +8,7 @@ interface SidebarProps {
 
 export const Sidebar = ({ variant = "sage" }: SidebarProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const bgColor = {
     sage: "bg-sage",
@@ -78,6 +80,27 @@ export const Sidebar = ({ variant = "sage" }: SidebarProps) => {
           );
         })}
       </nav>
+      {/* Botão admin e sair admin existentes */}
+      {isAdmin() && (
+        <>
+          <Link
+            to="/admin/avisos"
+            className={`mt-4 px-4 py-3 rounded-xl bg-green-700 text-white text-center font-bold hover:bg-green-800 transition-all`}
+          >
+            Área Admin
+          </Link>
+          {/* Botão para sair da área admin (só na rota admin) */}
+          {location.pathname === "/admin/avisos" && (
+            <Link
+              to="/"
+              className="mt-2 px-4 py-3 rounded-xl bg-white/20 text-white text-center font-semibold hover:bg-white/30 transition-all"
+            >
+              Sair da área admin
+            </Link>
+          )}
+        </>
+      )}
+      {/* Removido botão de logout da sidebar desktop conforme solicitado */}
     </aside>
   );
 };
